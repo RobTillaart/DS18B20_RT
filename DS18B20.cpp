@@ -1,7 +1,7 @@
 //
 //    FILE: DS18B20.cpp
 //  AUTHOR: Rob.Tillaart@gmail.com
-// VERSION: 0.1.2
+// VERSION: 0.1.3
 //    DATE: 2017-07-25
 //
 // PUPROSE: library for DS18B20 temperature sensor with minimal footprint
@@ -10,6 +10,7 @@
 // 0.1.0	2017-07-25 initial version
 // 0.1.1 	2020-02-18 added getAddress()
 // 0.1.2    2020-04-11 #pragma once, refactor
+// 0.1.3    2020-04-22 #1 fix library.json file
 
 #include "DS18B20.h"
 
