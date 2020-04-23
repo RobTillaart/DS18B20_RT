@@ -1,7 +1,7 @@
 //
 //    FILE: DS18B20.cpp
 //  AUTHOR: Rob.Tillaart@gmail.com
-// VERSION: 0.1.3
+// VERSION: 0.1.4
 //    DATE: 2017-07-25
 //
 // PUPROSE: library for DS18B20 temperature sensor with minimal footprint
@@ -11,6 +11,7 @@
 // 0.1.1 	2020-02-18 added getAddress()
 // 0.1.2    2020-04-11 #pragma once, refactor
 // 0.1.3    2020-04-22 #1 fix library.json file
+// 0.1.4    2020-04-23 #2 add retry in begin() to support Wemos
 
 #include "DS18B20.h"
 
@@ -45,11 +46,15 @@ DS18B20::DS18B20(OneWire* _oneWire)
 
 bool DS18B20::begin(void)
 {
-  _wire->reset_search();
-  _deviceAddress[0] = 0x00;
-  _wire->search(_deviceAddress);
-  _configured = _deviceAddress[0] != 0x00 && 
+  _configured = false;
+  for (uint8_t retries = 3; (retries > 0) && (_configured == false); retries--)
+  {
+    _wire->reset_search();
+    _deviceAddress[0] = 0x00;
+    _wire->search(_deviceAddress);
+    _configured = _deviceAddress[0] != 0x00 && 
                 _wire->crc8(_deviceAddress, 7) == _deviceAddress[7];
+  }
   return _configured;
 }
 

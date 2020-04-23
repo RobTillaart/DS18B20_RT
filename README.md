@@ -52,9 +52,6 @@ boards or IC's with small memory footprint.
 //  \  o |  3    VCC
 //   \---+
 ```
-
-
-    
 	
 This library supports only one DS18B20 per Arduino/ MCU pin.
 
