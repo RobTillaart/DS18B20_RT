@@ -1,7 +1,7 @@
 //
 //    FILE: DS18B20.cpp
 //  AUTHOR: Rob.Tillaart@gmail.com
-// VERSION: 0.1.4
+// VERSION: 0.1.5
 //    DATE: 2017-07-25
 //
 // PUPROSE: library for DS18B20 temperature sensor with minimal footprint
@@ -12,6 +12,7 @@
 // 0.1.2    2020-04-11 #pragma once, refactor
 // 0.1.3    2020-04-22 #1 fix library.json file
 // 0.1.4    2020-04-23 #2 add retry in begin() to support Wemos
+// 0.1.5    2020-04-29 #4 added set/getConfig + DEVICE_CRC_ERROR + example
 
 #include "DS18B20.h"
 
@@ -23,13 +24,13 @@
 // Scratchpad locations
 #define TEMP_LSB        0
 #define TEMP_MSB        1
-// #define HIGH_ALARM_TEMP 2
-// #define LOW_ALARM_TEMP  3
-// #define CONFIGURATION   4
-// #define INTERNAL_BYTE   5
-// #define COUNT_REMAIN    6
-// #define COUNT_PER_C     7
-// #define SCRATCHPAD_CRC  8
+#define HIGH_ALARM_TEMP 2
+#define LOW_ALARM_TEMP  3
+#define CONFIGURATION   4
+#define INTERNAL_BYTE   5
+#define COUNT_REMAIN    6
+#define COUNT_PER_C     7
+#define SCRATCHPAD_CRC  8
 
 // Device resolution
 #define TEMP_9_BIT  0x1F //  9 bit
@@ -41,21 +42,23 @@
 DS18B20::DS18B20(OneWire* _oneWire)
 {
   _wire = _oneWire;
-  _configured = false;
+  _addresFound = false;
+  _config = DS18B20_CLEAR;
 }
 
 bool DS18B20::begin(void)
 {
-  _configured = false;
-  for (uint8_t retries = 3; (retries > 0) && (_configured == false); retries--)
+  _config = DS18B20_CLEAR;
+  _addresFound = false;
+  for (uint8_t retries = 3; (retries > 0) && (_addresFound == false); retries--)
   {
     _wire->reset_search();
     _deviceAddress[0] = 0x00;
     _wire->search(_deviceAddress);
-    _configured = _deviceAddress[0] != 0x00 && 
+    _addresFound = _deviceAddress[0] != 0x00 &&
                 _wire->crc8(_deviceAddress, 7) == _deviceAddress[7];
   }
-  return _configured;
+  return _addresFound;
 }
 
 void DS18B20::readScratchPad(uint8_t *scratchPad, uint8_t fields)
@@ -86,10 +89,19 @@ void DS18B20::requestTemperatures(void)
 float DS18B20::getTempC(void)
 {
   ScratchPad scratchPad;
-  readScratchPad(scratchPad, 2);
-
+  if (_config & DS18B20_CRC)
+  {
+    readScratchPad(scratchPad, 9);
+    if (_wire->crc8(scratchPad, 8) != scratchPad[SCRATCHPAD_CRC])
+    {
+      return DEVICE_CRC_ERROR;
+    }
+  }
+  else
+  {
+    readScratchPad(scratchPad, 2);
+  }
   int16_t rawTemperature = (((int16_t)scratchPad[TEMP_MSB]) << 8) | scratchPad[TEMP_LSB];
-
   float temp = 0.0625 * rawTemperature;
   if (temp < -55) return DEVICE_DISCONNECTED;
   return temp;
@@ -124,14 +136,14 @@ void DS18B20::setResolution(uint8_t newResolution)
 
 bool DS18B20::getAddress(uint8_t* buf)
 {
-  if (_configured)
+  if (_addresFound)
   {
 	  for (uint8_t i = 0; i < 8; i++)
 	  {
 		 buf[i] = _deviceAddress[i];
 	  }
   }
-  return _configured;
+  return _addresFound;
 }
 
 //  -- END OF FILE --
