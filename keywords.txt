@@ -1,6 +1,5 @@
 # Syntax Coloring Map For DS18B20
 
-
 # Datatypes (KEYWORD1)
 DS18B20	KEYWORD1
 OneWire	KEYWORD1
