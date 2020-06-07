@@ -1,9 +1,8 @@
 //
 //    FILE: DS18B20.cpp
 //  AUTHOR: Rob.Tillaart@gmail.com
-// VERSION: 0.1.5
+// VERSION: 0.1.6
 //    DATE: 2017-07-25
-//
 // PUPROSE: library for DS18B20 temperature sensor with minimal footprint
 //
 // HISTORY:
@@ -13,6 +12,7 @@
 // 0.1.3    2020-04-22 #1 fix library.json file
 // 0.1.4    2020-04-23 #2 add retry in begin() to support Wemos
 // 0.1.5    2020-04-29 #4 added set/getConfig + DEVICE_CRC_ERROR + example
+// 0.1.6    2020-06-07 fix library.json
 
 #include "DS18B20.h"
 
