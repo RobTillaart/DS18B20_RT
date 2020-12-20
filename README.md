@@ -1,3 +1,8 @@
+
+[![Arduino CI](https://github.com/RobTillaart/DS18B20/workflows/Arduino%20CI/badge.svg)](https://github.com/marketplace/actions/arduino_ci)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/RobTillaart/DS18B20/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/RobTillaart/DS18B20.svg?maxAge=3600)](https://github.com/RobTillaart/DS18B20/releases)
+
 # DS18B20
 
 Arduino library for the DS18B20 sensor - restricted to one sensor per pin.
@@ -20,14 +25,14 @@ The DS18B20 library supports only the DS18B20, only one sensor per pin, no paras
 mode, no Fahrenheit and no alarm functions. The only feature the class supports is 
 the asynchronous reading of the temperature by means of three core functions:
 
-* void requestTemperatures()
-* bool isConversionComplete()
-* float readTempC()
+- **void requestTemperatures()**
+- **bool isConversionComplete()**
+- **float readTempC()**
 
 The other main functions are
-* bool begin(void);  *// returns true if the sensor is configured (available)*
-* void setResolution(uint8_t);
-* bool getAddress(uint8_t*)  *// returns true if the sensor is configured (available)*
+- **bool begin()** returns true if the sensor is configured (available)
+- **void setResolution(res)** res = 9..12
+- **bool getAddress()** returns true if the sensor is configured (available)
 
 This allowed the class to be both minimal in size and non-blocking. In fact the class
 has no support for a synchronous read in one call. This choice will teach people
@@ -72,8 +77,8 @@ Note: thicker wires require smaller resistors (typically 1 step in E12 series)
 | 50cm (20")    |  4K7  | 3K3 | 
 | 100cm (3'4")  |  3K3  | 2K2 | 
 | 200cm (6'8")  |  2K2  | 1K0 | 
-| 500cm (16'8") |  1K0  | *   |  
-| longer        |    *  | *   |
+| 500cm (16'8") |  1K0  | \*  |  
+| longer        |    *  | \*  |
 
 \* = no info, smaller 
 

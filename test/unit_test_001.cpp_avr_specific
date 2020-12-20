@@ -1,0 +1,80 @@
+//
+//    FILE: unit_test_001.cpp
+//  AUTHOR: Rob Tillaart
+//    DATE: 2020-12-20
+// PURPOSE: unit tests for the DS18B20 library
+//          https://github.com/RobTillaart/DS18B20
+//          https://github.com/Arduino-CI/arduino_ci/blob/master/REFERENCE.md
+//
+
+// supported assertions
+// https://github.com/Arduino-CI/arduino_ci/blob/master/cpp/unittest/Assertion.h#L33-L42
+// ----------------------------
+// assertEqual(expected, actual)
+// assertNotEqual(expected, actual)
+// assertLess(expected, actual)
+// assertMore(expected, actual)
+// assertLessOrEqual(expected, actual)
+// assertMoreOrEqual(expected, actual)
+// assertTrue(actual)
+// assertFalse(actual)
+// assertNull(actual)
+// assertNotNull(actual)
+
+#include <ArduinoUnitTests.h>
+
+#define assertEqualFloat(arg1, arg2, arg3)  assertOp("assertEqualFloat", "expected", fabs(arg1 - arg2), compareLessOrEqual, "<=", "actual", arg3)
+#define assertEqualINF(arg)  assertOp("assertEqualINF", "expected", INFINITY, compareEqual, "==", "actual", arg)
+#define assertEqualNAN(arg)  assertOp("assertEqualNAN", "expected", true, compareEqual, "==", "actual", isnan(arg))
+
+
+#include "Arduino.h"
+#include "DS18B20.h"
+
+
+
+unittest_setup()
+{
+}
+
+unittest_teardown()
+{
+}
+
+
+unittest(test_constructor)
+{
+  OneWire oneWire(4);
+  DS18B20 sensor(&oneWire);
+
+  sensor.begin();
+  
+  assertEqual(DS18B20_CLEAR, sensor.getConfig());
+  
+  sensor.setConfig(DS18B20_CRC);
+  assertEqual(DS18B20_CRC, sensor.getConfig());
+  
+  sensor.setConfig(DS18B20_CLEAR);
+  assertEqual(DS18B20_CLEAR, sensor.getConfig());
+}
+
+unittest(test_try_read)
+{
+  OneWire oneWire(4);
+  DS18B20 sensor(&oneWire);
+
+  sensor.begin();
+  for (int res = 9; res < 13; res++)
+  {
+    sensor.setResolution(res);
+    sensor.requestTemperatures();
+    delay(750);
+    assertFalse(sensor.isConversionComplete());
+    assertEqual(DEVICE_DISCONNECTED, sensor.getTempC());
+  }
+  
+}
+
+unittest_main()
+
+// --------

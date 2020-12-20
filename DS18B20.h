@@ -2,7 +2,7 @@
 //
 //    FILE: DS18B20.h
 //  AUTHOR: Rob.Tillaart@gmail.com
-// VERSION: 0.1.6
+// VERSION: 0.1.7
 //    DATE: 2017-07-25
 // PUPROSE: library for DS18B20 temperature sensor with minimal footprint
 //
@@ -18,7 +18,7 @@
 //   \---+
 //
 
-#define DS18B20_LIB_VERSION     "0.1.6"
+#define DS18B20_LIB_VERSION     "0.1.7"
 
 #include <OneWire.h>
 
