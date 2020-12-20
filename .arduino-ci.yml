@@ -13,7 +13,7 @@ unittest:
   # These dependent libraries will be installed
   libraries:
     - "OneWire"
-    - "crc16"     # how to include util/crc16 lib...
+    # fix the #include "util/crc16" problem here?
     
     
 
