@@ -32,8 +32,9 @@ the asynchronous reading of the temperature by means of three core functions:
 - **float readTempC()**
 
 The other main functions are
-- **bool begin()** returns true if the sensor is configured (available)
-- **void setResolution(res)** res = 9..12
+- **bool begin(uint8_t retries = 3)** returns true if the sensor is configured (available),
+there will be a number of retries to connect, default 3. 
+- **void setResolution(uint8_t res = 9)** res = 9..12 (9 is default)
 - **bool getAddress()** returns true if the sensor is configured (available)
 
 This allowed the class to be both minimal in size and non-blocking. In fact the class
