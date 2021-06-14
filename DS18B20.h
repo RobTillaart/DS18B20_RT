@@ -18,7 +18,7 @@
 //   \---+
 //
 
-#define DS18B20_LIB_VERSION     (F("0.1.8"))
+#define DS18B20_LIB_VERSION     (F("0.1.9"))
 
 #include <OneWire.h>
 
