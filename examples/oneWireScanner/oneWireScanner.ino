@@ -1,17 +1,10 @@
 //
 //    FILE: oneWireScanner.ino
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.1.00
 // PURPOSE: scan for 1-Wire devices
 //    DATE: 2016-01-10
-//     URL:
-//
-// Released to the public domain
-//
-// 0.1.00 initial version
-//
+//     URL: https://github.com/RobTillaart/DS18B20_RT
 
-#define SKETCH "\noneWireScanner V1.0.0\n"
 
 struct DSdevice
 {
@@ -36,7 +29,7 @@ const int endPin = 20;
 void setup()
 {
   Serial.begin(115200);
-  Serial.println(SKETCH);
+  Serial.println(__FILE__);
 
   for (uint8_t pin = startPin; pin < endPin; pin++)
   {
@@ -100,3 +93,7 @@ uint8_t findDevices(int pin)
   Serial.println(count);
   return count;
 }
+
+
+//  -- END OF FILE --
+
