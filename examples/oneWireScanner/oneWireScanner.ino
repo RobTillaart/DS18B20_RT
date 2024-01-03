@@ -15,7 +15,7 @@
 struct DSdevice
 {
   byte id;
-  char type[8];
+  char type[12];
 } DSdevices[] = {
   { 0x01, "DS2401"},     //  Silicon Serial Number
   { 0x05, "DS2405"},     //  switch
