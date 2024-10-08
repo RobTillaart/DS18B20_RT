@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [0.2.4] - 2024-10-08
 - Fix #34, add setOffset() and getOffset()
+- add conversion simple wrapper for **getTempF()** for Fahrenheit.
 - update readme.md
 
 ## [0.2.3] - 2024-06-27

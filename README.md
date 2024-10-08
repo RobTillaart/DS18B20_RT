@@ -91,6 +91,8 @@ Buf must be a byte array of at least 8 bytes.
   - -127 = DEVICE_DISCONNECTED (only when checkConnect == true)
   - -128 = DEVICE_CRC_ERROR
   - can be faster by setting checkConnect to false. (experimental)
+- **float getTempF()** simple wrapper, returns temperature in Fahrenheit.
+
 
 This "async only" allows the class to be both minimal in size and non-blocking. 
 In fact the class has no support for a synchronous read in one call. 
@@ -101,6 +103,9 @@ This choice will teach people how to work in a non-blocking way from the start.
 
 - **void setOffset(float offset = 0)** set a (small) offset to calibrate the sensor.
 - **float getOffset()** return the current offset, default 0.
+
+One additional application of the offset is to **setOffset(273.15)** which 
+converts the default Celsius temperature into **Kelvin**.
 
 
 ### Resolution
@@ -206,7 +211,7 @@ sensor is read.
 ## Credits
 
 Miles Burton who originally developed the Arduino Temperature Control Library.
-and all people who contributed to that lib.
+and all people who contributed to that library.
 
 
 ## Future
@@ -217,13 +222,14 @@ and all people who contributed to that lib.
 
 #### Should
 
-- add examples
 - investigate performance gain of no CRC.
+  - add performance table in readme.md
 - Extend oneWireSearch with device types
   - see oneWireScanner.ino (2016 version)
 - should checkConnect be a **config** flag like CRC?
 
 #### Could
+
 
 #### Wont
 
