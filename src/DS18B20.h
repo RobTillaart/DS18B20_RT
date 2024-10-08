@@ -50,7 +50,7 @@ public:
   float     getTempC(bool checkConnect = true);
   //        conversion wrapper Fahrenheit
   //        (keep in .h for footprint)
-  float     getTempF() { return 32.0 + getTempC() \* 1.8; };
+  float     getTempF() { return 32.0 + getTempC() * 1.8; };
 
   void      setOffset(float offset = 0);
   float     getOffset();
