@@ -120,8 +120,8 @@ float DS18B20::getTempC(bool checkConnect)
     }
     if (scratchPad[6] == 0x0C)
     {
-      //  Power On Reset error needs scratchPad[6].
-      if ((scratchPad[0] == 0x50) && (scratchPad[1] == 0x50))
+      //  Power On Reset 85C error needs scratchPad[6]. See #37 (DCTL #289)
+      if ((scratchPad[1] == 0x05) && (scratchPad[0] == 0x50))
       {
         return DEVICE_POR_ERROR;
       }
@@ -131,9 +131,9 @@ float DS18B20::getTempC(bool checkConnect)
   {
     readScratchPad(scratchPad, 2);
   }
-
+  //  Power On Reset 85C error cannot be tested here
   //  the 127.94 error can be checked here
-  if ((scratchPad[0] == 0xFF) && (scratchPad[1] == 0x07))
+  if ((scratchPad[1] == 0x07) && (scratchPad[0] == 0xFF))
   {
     return DEVICE_GND_ERROR;
   }

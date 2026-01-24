@@ -66,7 +66,7 @@ public:
 
 
 private:
-  void          readScratchPad(uint8_t *, uint8_t);
+  void          readScratchPad(uint8_t * scratchPad, uint8_t fields);
   void          _setResolution();
 
   DeviceAddress _deviceAddress;

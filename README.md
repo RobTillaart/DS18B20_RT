@@ -228,6 +228,8 @@ and the CRC can be checked.
 Table of known "strange values" and actions one could take.
 It is meant to start some diagnosis.
 
+(note these are all known errors, not perse for this library)
+
 | value   | possible cause                      |  optional action  |
 |:--------|:------------------------------------|:------------------|
 |  0.0000 | data line has no pull up            |  use pull up
@@ -240,8 +242,6 @@ It is meant to start some diagnosis.
 If a value occurs only once in a while, wiring is often the cause, 
 or it can be caused by e.g. induction e.g. switching on a motor while 
 sensor is read.
-
-The errors -128..-130 can only occur if 
 
 Additional notes:
 
