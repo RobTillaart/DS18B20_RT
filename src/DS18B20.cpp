@@ -138,6 +138,12 @@ float DS18B20::getTempC(bool checkConnect)
     return DEVICE_GND_ERROR;
   }
 
+  //  the 127.94 error can be checked here
+  if ((scratchPad[0] == 0xFF) && (scratchPad[1] == 0x07))
+  {
+    return DEVICE_GND_ERROR;
+  }
+
   int16_t rawTemperature = (((int16_t)scratchPad[TEMP_MSB]) << 8) | scratchPad[TEMP_LSB];
   float temp = 0.0625 * rawTemperature;
   if (temp < -55)
