@@ -74,6 +74,7 @@ This library is related to
 - https://github.com/RobTillaart/DS18B21 OneWire temperature sensor (8 bit)
 - https://github.com/milesburton/Arduino-Temperature-Control-Library
 - https://github.com/milesburton/Arduino-Temperature-Control-Library/issues/244#event-9253126638
+- https://github.com/RobTillaart/MCP9808_RT
 - https://github.com/RobTillaart/PCT2075 11 bit I2C temperature sensor with thermal watchdog.
 - https://github.com/RobTillaart/SHT31 Sensirion humidity / temperature sensor
 - https://github.com/RobTillaart/SHT85 Sensirion humidity / temperature sensor
